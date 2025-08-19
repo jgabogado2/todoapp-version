@@ -37,6 +37,8 @@ export function TodoCard({
     <Card className={cn("w-full", pending && "opacity-50")}>
       <CardContent className="flex items-start gap-3 p-3">
         <span className="size-10 flex items-center justify-center">
+
+
           <Checkbox
             disabled={pending}
             checked={Boolean(checked)}
