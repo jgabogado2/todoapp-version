@@ -46,7 +46,7 @@ export function TodoForm({
               inserted_at: "",
               user_id: "",
               task: data.get("todo") as string,
-              is_complete: false,
+              status: data.get("todo") as string,
             };
             optimisticUpdate({ action: "create", todo: newTodo });
             await addTodo(data);

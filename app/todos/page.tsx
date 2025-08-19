@@ -15,7 +15,7 @@ export default async function TodosPage() {
   }
 
   const { data: todos } = await supabase
-    .from("todos")
+    .from("todos_test")
     .select()
     .order("inserted_at", { ascending: false });
 

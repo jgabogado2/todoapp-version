@@ -1,7 +1,7 @@
 export type Json =
   | string
   | number
-  | boolean
+  | string
   | null
   | { [key: string]: Json | undefined }
   | Json[]
@@ -9,25 +9,25 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      todos: {
+      todos_test: {
         Row: {
           id: number
           inserted_at: string
-          is_complete: boolean | null
+          status: string | null
           task: string | null
           user_id: string
         }
         Insert: {
           id?: number
           inserted_at?: string
-          is_complete?: boolean | null
+          status?: boolean | null
           task?: string | null
           user_id: string
         }
         Update: {
           id?: number
           inserted_at?: string
-          is_complete?: boolean | null
+          status?: boolean | null
           task?: string | null
           user_id?: string
         }

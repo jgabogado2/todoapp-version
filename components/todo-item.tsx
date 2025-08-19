@@ -9,6 +9,15 @@ import { Trash2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { TodoOptimisticUpdate } from "./todo-list";
 import { useState } from "react";
+import * as React from "react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 export function TodoItem({
   todo,
@@ -28,28 +37,37 @@ export function TodoCard({
   todo,
   optimisticUpdate,
 }: {
-  todo: Todo;
+      todo: Todo;
   optimisticUpdate: TodoOptimisticUpdate;
 }) {
   const { pending } = useFormStatus();
-  const [checked, setChecked] = useState(todo.is_complete);
+  const [checked, setStatus] = useState(todo.status);
   return (
+    
     <Card className={cn("w-full", pending && "opacity-50")}>
       <CardContent className="flex items-start gap-3 p-3">
-        <span className="size-10 flex items-center justify-center">
-
-
-          <Checkbox
-            disabled={pending}
-            checked={Boolean(checked)}
-            onCheckedChange={async (val) => {
-              if (val === "indeterminate") return;
-              setChecked(val);
-              await updateTodo({ ...todo, is_complete: val });
-            }}
-          />
-        </span>
         <p className={cn("flex-1 pt-2 min-w-0 break-words")}>{todo.task}</p>
+
+        
+          <Select
+            disabled={pending}
+            defaultValue={String(todo.status)}
+            onValueChange={async (val) => {
+              setStatus(val);
+              await updateTodo({ ...todo, status: val });
+            }}
+          >
+            <SelectTrigger className="w-[120px]">
+              <SelectValue placeholder="Set status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="backlog">Backlog</SelectItem>
+              <SelectItem value="todo">Todo</SelectItem>
+              <SelectItem value="in progress">In Progress</SelectItem>
+              <SelectItem value="done">Done</SelectItem>
+              <SelectItem value="canceled">Canceled</SelectItem>
+            </SelectContent>
+          </Select>
         <Button
           disabled={pending}
           formAction={async (data) => {
@@ -66,3 +84,4 @@ export function TodoCard({
     </Card>
   );
 }
+

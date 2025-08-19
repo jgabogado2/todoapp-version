@@ -18,7 +18,7 @@ export async function addTodo(formData: FormData) {
         throw new Error("User is not logged in")
     }
 
-    const { error } = await supabase.from("todos").insert({
+    const { error } = await supabase.from("todos_test").insert({
         task: text,
         user_id: user.id
     })
@@ -38,7 +38,7 @@ export async function deleteTodo(id: number) {
         throw new Error("User is not logged in")
     }
 
-    const { error } = await supabase.from("todos").delete().match({
+    const { error } = await supabase.from("todos_test").delete().match({
         user_id: user.id,
         id: id
     })
@@ -60,7 +60,7 @@ export async function updateTodo(todo: Todo) {
         throw new Error("User is not logged in")
     }
 
-    const { error } = await supabase.from("todos").update(todo).match({
+    const { error } = await supabase.from("todos_test").update(todo).match({
         user_id: user.id,
         id: todo.id
     })
