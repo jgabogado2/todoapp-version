@@ -26,6 +26,7 @@ export default async function TodosPage() {
       </h1>
       <Separator className="w-full " />
       <TodoList todos={todos ?? []} />
+    
     </section>
   );
 }

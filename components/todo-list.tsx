@@ -3,6 +3,7 @@ import { TodoItem } from "./todo-item";
 import { TodoForm } from "./todo-form";
 import { Todo } from "@/types/custom";
 import { useOptimistic } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area"; // ⬅️ import shadcn ScrollArea
 
 export type Action = "delete" | "update" | "create";
 
@@ -32,20 +33,23 @@ export function TodoList({ todos }: { todos: Array<Todo> }) {
     todos,
     todoReducer
   );
+
   return (
     <>
       <TodoForm optimisticUpdate={optimisticTodosUpdate} />
-      <div className="w-full flex flex-col gap-4">
-        {optimisticTodos?.map((todo) => {
-          return (
+
+      {/* Scroll wrapper around all cards */}
+      <ScrollArea className="h-[400px] w-full rounded-md border p-4">
+        <div className="flex flex-col gap-4">
+          {optimisticTodos?.map((todo) => (
             <TodoItem
               optimisticUpdate={optimisticTodosUpdate}
               todo={todo}
               key={todo.id}
             />
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      </ScrollArea>
     </>
   );
 }
